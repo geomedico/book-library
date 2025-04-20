@@ -1,0 +1,5 @@
+data-storage
+node_modules
+.pnpm
+build
+*.log

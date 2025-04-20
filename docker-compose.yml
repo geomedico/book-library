@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+
+  test:
+    build: .
+    container_name: book-service-test
+    hostname: book-service-test
+    environment:
+      NODE_ENV: test
+    volumes:
+      - .:/app
+    networks:
+      - libarary-network
+    command: sh -c "pnpm test:sequential && sleep 25"
+
+  book-service:
+    build: .
+    container_name: book-service
+    hostname: book-service
+    ports:
+      - "3000:3000"
+    environment:
+      TYPE: SERVER
+      NODE_ENV: production
+    volumes:
+      - .:/app
+    networks:
+      - libarary-network
+    # depends_on:
+    #   - test
+    command: pnpm start
+
+  
+networks:
+  libarary-network:
+    driver: bridge

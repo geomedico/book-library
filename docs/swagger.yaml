@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: Book API
+  version: 1.0.0
+  description: API for managing books
+
+paths:
+  /books:
+    post:
+      summary: Create a book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Book created
+
+    get:
+      summary: List books
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: author
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+        - in: query
+          name: sortOrder
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        '200':
+          description: List of books
+
+  /books/{id}/status:
+    put:
+      summary: Update book status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Status updated
+        '404':
+          description: Not found
+
+  /books/{id}:
+    delete:
+      summary: Delete a book
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+
+components:
+  schemas:
+    BookInput:
+      type: object
+      required:
+        - title
+        - author
+        - year
+        - status
+      properties:
+        title:
+          type: string
+          example: "The Pragmatic Programmer"
+        author:
+          type: string
+          example: "Andy Hunt"
+        year:
+          type: integer
+          minimum: 1000
+          example: 2000
+        status:
+          type: string
+          enum: [AVAILABLE, READING, FINISHED]
