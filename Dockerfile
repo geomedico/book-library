@@ -1,6 +1,6 @@
 FROM node:22.13.1-slim
 
-RUN npm install -g pnpm@8.15.4
+RUN npm install -g pnpm@9.10.0
 
 WORKDIR /usr/src/app
 

@@ -10,7 +10,7 @@ data-storage
 # misc
 .DS_Store
 .env.production
-
+.env
 # debug
 npm-debug.log*
 
