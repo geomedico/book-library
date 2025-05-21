@@ -9,7 +9,7 @@ import {
   deleteBookSchema
 } from '../validation-schemas/index.js';
 
-const routes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
+const routes: FastifyPluginAsync = async (fastify: FastifyInstance): Promise<void> => {
   const service = new BookService(fastify.bookRepo);
   const controller = bookController(service);
 
@@ -17,7 +17,6 @@ const routes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   fastify.get('/', { schema: getBooksQuerySchema }, controller.list);
   fastify.patch('/:id/status', { schema: updateBookStatusSchema }, controller.updateStatus);
   fastify.delete('/:id', { schema: deleteBookSchema }, controller.remove);
-
 }
 
 export default routes;

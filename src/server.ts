@@ -12,7 +12,7 @@ import { __dirname } from './common/utils/paths';
 const server = fastify({
   ajv: {
     customOptions: {
-      removeAdditional: "all",
+      removeAdditional: 'all',
       coerceTypes: true,
       useDefaults: true,
     }
@@ -21,8 +21,6 @@ const server = fastify({
     level: process.env.LOG_LEVEL,
   },
 });
-
-console.log('dir:', __dirname);
 
 await server.register(staticPlugin, {
   root: path.join(__dirname, '../../../docs'),
